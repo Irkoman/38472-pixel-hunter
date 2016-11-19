@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Ирина Смирнова](https://up.htmlacademy.ru/ecmascript/1/user/38472).
-* Наставник: `Неизвестно`.
+* Наставник: [Варя Степанова](https://up.htmlacademy.ru/ecmascript/1/user/148462).
 
 ---
 

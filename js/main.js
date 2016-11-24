@@ -1,17 +1,15 @@
+import intro from './intro';
+import greeting from './greeting';
+import rules from './rules';
+import game1 from './game-1';
+import game2 from './game-2';
+import game3 from './game-3';
+import stats from './stats';
+
 (function () {
-
-  let loadTemplate = (templateName) => {
-    let node = document.createElement('span');
-    let template = document.getElementById(templateName);
-    let content = template.content ? template.content : template;
-    node.appendChild(content);
-    return node.cloneNode(true);
-  };
-
   // Rules
-  let rulesElement = loadTemplate('rules');
-  let rulesSubmit = rulesElement.querySelector('.rules__button');
-  let rulesInput = rulesElement.querySelector('.rules__input');
+  let rulesSubmit = rules.querySelector('.rules__button');
+  let rulesInput = rules.querySelector('.rules__input');
 
   rulesInput.oninput = (e) => {
     if (e.target.value) {
@@ -33,13 +31,13 @@
   mainElement.after(switcher);
 
   let slides = [
-    loadTemplate('intro'),
-    loadTemplate('greeting'),
-    rulesElement,
-    loadTemplate('game-1'),
-    loadTemplate('game-2'),
-    loadTemplate('game-3'),
-    loadTemplate('stats')
+    intro,
+    greeting,
+    rules,
+    game1,
+    game2,
+    game3,
+    stats
   ];
   let current = -1;
 

@@ -1,4 +1,6 @@
 import getElementFromTemplate from './get-element-from-template';
+import renderSlide from './render-slide';
+import game3 from './game-3';
 
 const game2 = getElementFromTemplate(
     `<header class="header">
@@ -46,5 +48,13 @@ const game2 = getElementFromTemplate(
       </div>
     </div>`
 );
+
+const gameAnswers = game2.querySelectorAll('.game__answer');
+
+for (const gameAnswer of gameAnswers) {
+  gameAnswer.onclick = () => {
+    renderSlide(game3);
+  };
+}
 
 export default game2;

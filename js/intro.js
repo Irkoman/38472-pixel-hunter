@@ -1,4 +1,6 @@
 import getElementFromTemplate from './get-element-from-template';
+import renderSlide from './render-slide';
+import greeting from './greeting';
 
 const intro = getElementFromTemplate(
     `<div id="intro" class="intro">
@@ -7,5 +9,11 @@ const intro = getElementFromTemplate(
       Sparnaay.</p>
     </div>`
 );
+
+let introAsterisk = intro.querySelector('.intro__asterisk');
+
+introAsterisk.onclick = () => {
+  renderSlide(greeting);
+};
 
 export default intro;

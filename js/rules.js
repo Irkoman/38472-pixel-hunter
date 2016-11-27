@@ -1,4 +1,7 @@
 import getElementFromTemplate from './get-element-from-template';
+import renderSlide from './render-slide';
+import game1 from './game-1';
+import greeting from './greeting';
 
 const rules = getElementFromTemplate(
     `<header class="header">
@@ -26,5 +29,23 @@ const rules = getElementFromTemplate(
       </form>
     </div>`
 );
+
+let rulesForm = rules.querySelector('.rules__form');
+let rulesSubmit = rules.querySelector('.rules__button');
+let rulesInput = rules.querySelector('.rules__input');
+let backToGreeting = rules.querySelector('.header__back');
+
+rulesInput.oninput = (e) => {
+  rulesSubmit.disabled = !(e.target.value);
+};
+
+rulesForm.onsubmit = (e) => {
+  e.preventDefault();
+  renderSlide(game1);
+};
+
+backToGreeting.onclick = () => {
+  renderSlide(greeting);
+};
 
 export default rules;

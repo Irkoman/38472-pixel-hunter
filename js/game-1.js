@@ -1,12 +1,14 @@
 import getElementFromTemplate from './get-element-from-template';
+import renderSlide from './render-slide';
+import game2 from './game-2';
 
 const game1 = getElementFromTemplate(
     `<header class="header">
       <div class="header__back">
-          <span class="back">
-            <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-            <img src="img/logo_small.png" width="101" height="44">
-          </span>
+        <span class="back">
+          <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
+          <img src="img/logo_small.png" width="101" height="44">
+        </span>
       </div>
       <h1 class="game__timer">NN</h1>
       <div class="game__lives">
@@ -57,5 +59,13 @@ const game1 = getElementFromTemplate(
       </div>
     </div>`
 );
+
+const gameAnswers = game1.querySelectorAll('.game__answer');
+
+for (const gameAnswer of gameAnswers) {
+  gameAnswer.onclick = () => {
+    renderSlide(game2);
+  };
+}
 
 export default game1;

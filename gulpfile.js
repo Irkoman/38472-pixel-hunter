@@ -4,8 +4,7 @@ const del = require('del');
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const plumber = require('gulp-plumber');
-const sourcemaps = require('gulp-sourcemaps');
-const babel = require('gulp-babel');
+const webpack = require('gulp-webpack');
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const server = require('browser-sync').create();
@@ -38,13 +37,19 @@ gulp.task('style', function () {
 });
 
 gulp.task('scripts', function () {
-  gulp.src('js/**/*.js')
+  return gulp.src('js/main.js')
     .pipe(plumber())
-    .pipe(sourcemaps.init())
-    .pipe(babel({
-      presets: ['es2015']
+    .pipe(webpack({
+      devtool: 'source-map',
+      module: {
+        loaders: [
+          {test: /\.js$/, loader: 'babel-loader'},
+        ],
+      },
+      output: {
+        filename: 'main.js',
+      }
     }))
-    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('build/js/'));
 });
 
@@ -52,7 +57,7 @@ gulp.task('test', function () {
 });
 
 gulp.task('imagemin', ['copy'], function () {
-  gulp.src('build/img/**/*.{jpg,png,gif}')
+  return gulp.src('build/img/**/*.{jpg,png,gif}')
     .pipe(imagemin([
       imagemin.optipng({optimizationLevel: 3}),
       imagemin.jpegtran({progressive: true})
@@ -62,13 +67,13 @@ gulp.task('imagemin', ['copy'], function () {
 
 
 gulp.task('copy-html', function () {
-  gulp.src('*.html')
+  return gulp.src('*.html')
     .pipe(gulp.dest('build'))
     .pipe(server.stream());
 });
 
 gulp.task('copy', ['copy-html', 'scripts', 'style'], function () {
-  gulp.src([
+  return gulp.src([
     'fonts/**/*.{woff,woff2}',
     'img/*.*'
   ], {base: '.'})
@@ -76,7 +81,7 @@ gulp.task('copy', ['copy-html', 'scripts', 'style'], function () {
 });
 
 gulp.task('clean', function () {
-  return del(['build/*','build'], {force: true});
+  return del('build');
 });
 
 gulp.task('serve', ['assemble'], function () {
@@ -89,7 +94,11 @@ gulp.task('serve', ['assemble'], function () {
   });
 
   gulp.watch('sass/**/*.{scss,sass}', ['style']);
-  gulp.watch('*.html', ['copy-html']);
+  gulp.watch('*.html').on('change', (e) => {
+    if (e.type !== 'deleted') {
+      gulp.start('copy-html');
+    }
+  });
   gulp.watch('js/**/*.js', ['scripts']).on('change', server.reload);
 });
 

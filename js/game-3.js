@@ -47,12 +47,10 @@ const game3 = getElementFromTemplate(
     </div>`
 );
 
-const gameOptions = game3.querySelectorAll('.game__option');
+const gameOptions = Array.from(game3.querySelectorAll('.game__option'));
 
-for (const gameOption of gameOptions) {
-  gameOption.onclick = () => {
-    renderSlide(stats);
-  };
-}
+gameOptions.forEach(function (gameOption) {
+  gameOption.addEventListener('click', () => renderSlide(stats));
+});
 
 export default game3;

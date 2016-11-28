@@ -60,12 +60,10 @@ const game1 = getElementFromTemplate(
     </div>`
 );
 
-const gameAnswers = game1.querySelectorAll('.game__answer');
+const gameAnswers = Array.from(game1.querySelectorAll('.game__answer'));
 
-for (const gameAnswer of gameAnswers) {
-  gameAnswer.onclick = () => {
-    renderSlide(game2);
-  };
-}
+gameAnswers.forEach(function (gameAnswer) {
+  gameAnswer.addEventListener('click', () => renderSlide(game2));
+});
 
 export default game1;

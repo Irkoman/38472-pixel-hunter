@@ -35,17 +35,15 @@ let rulesSubmit = rules.querySelector('.rules__button');
 let rulesInput = rules.querySelector('.rules__input');
 let backToGreeting = rules.querySelector('.header__back');
 
-rulesInput.oninput = (e) => {
+rulesInput.addEventListener('input', (e) => {
   rulesSubmit.disabled = !(e.target.value);
-};
+});
 
-rulesForm.onsubmit = (e) => {
+rulesForm.addEventListener('submit', (e) => {
   e.preventDefault();
   renderSlide(game1);
-};
+});
 
-backToGreeting.onclick = () => {
-  renderSlide(greeting);
-};
+backToGreeting.addEventListener('click', () => renderSlide(greeting));
 
 export default rules;

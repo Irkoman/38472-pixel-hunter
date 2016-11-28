@@ -1,8 +1,6 @@
 const mainElement = document.getElementById('main');
 
-const renderSlide = (slide) => {
+export default function (slide) {
   mainElement.innerHTML = '';
   mainElement.appendChild(slide);
-};
-
-export default renderSlide;
+}

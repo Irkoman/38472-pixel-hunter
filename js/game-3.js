@@ -1,4 +1,6 @@
 import getElementFromTemplate from './get-element-from-template';
+import renderSlide from './render-slide';
+import stats from './stats';
 
 const game3 = getElementFromTemplate(
     `<header class="header">
@@ -44,5 +46,11 @@ const game3 = getElementFromTemplate(
       </div>
     </div>`
 );
+
+const gameOptions = Array.from(game3.querySelectorAll('.game__option'));
+
+gameOptions.forEach(function (gameOption) {
+  gameOption.addEventListener('click', () => renderSlide(stats));
+});
 
 export default game3;

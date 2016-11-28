@@ -1,4 +1,6 @@
 import getElementFromTemplate from './get-element-from-template';
+import renderSlide from './render-slide';
+import rules from './rules';
 
 const greeting = getElementFromTemplate(
     `<div class="greeting  central--blur">
@@ -15,5 +17,11 @@ const greeting = getElementFromTemplate(
       <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
     </div>`
 );
+
+let greetingContinue = greeting.querySelector('.greeting__continue');
+
+greetingContinue.onclick = () => {
+  renderSlide(rules);
+};
 
 export default greeting;

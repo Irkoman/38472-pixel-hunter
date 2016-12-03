@@ -1,78 +1,13 @@
 import getElementFromTemplate from './get-element-from-template';
-
-const data = {
-  verdict: 'Победа!',
-  results: [
-    {
-      number: '1.',
-      stats: ['wrong', 'slow', 'fast', 'correct', 'wrong', 'unknown', 'slow', 'unknown', 'fast', 'unknown'],
-      points: '× 100',
-      score: '900',
-      extra: [
-        {
-          name: 'Бонус за скорость:',
-          amount: '1 ',
-          type: 'fast',
-          points: '× 50',
-          score: '50'
-        }, {
-          name: 'Бонус за жизни:',
-          amount: '2 ',
-          type: 'heart',
-          points: '× 50',
-          score: '100'
-        }, {
-          name: 'Штраф за медлительность:',
-          amount: '2 ',
-          type: 'slow',
-          points: '× 50',
-          score: '-100'
-        }
-      ],
-      total: '950'
-    }, {
-      number: '2.',
-      stats: ['wrong', 'slow', 'fast', 'correct', 'wrong', 'unknown', 'slow', 'unknown', 'fast', 'wrong'],
-      points: '',
-      score: '',
-      extra: [],
-      total: 'Fail'
-    }, {
-      number: '3.',
-      stats: ['wrong', 'slow', 'fast', 'correct', 'wrong', 'unknown', 'slow', 'unknown', 'fast', 'unknown'],
-      points: '× 100',
-      score: '',
-      extra: [
-        {
-          name: 'Бонус за жизни:',
-          amount: '2 ',
-          type: 'heart',
-          points: '× 50',
-          score: '100'
-        }
-      ],
-      total: '950'
-    }
-  ]
-};
-
-const header = `
-  <header class="header">
-    <div class="header__back">
-      <span class="back">
-        <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-        <img src="img/logo_small.png" width="101" height="44">
-      </span>
-    </div>
-  </header>
-`;
+import {statsData} from '../data/game';
+import header from './components/header';
 
 const verdict = `
-  <h1>${data.verdict}</h1>
+  <h1>${statsData.verdict}</h1>
 `;
 
 const results = `
-  ${data.results.map((result) => `
+  ${statsData.results.map((result) => `
     <table class="result__table">
       <tr>
         <td class="result__number">${result.number}</td>
@@ -105,7 +40,7 @@ const results = `
 `;
 
 const stats = `
-  ${header}
+  ${header()}
   <div class="result">
     ${verdict}
     ${results}

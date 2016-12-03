@@ -1,18 +1,8 @@
 import getElementFromTemplate from './get-element-from-template';
 import renderSlide from './render-slide';
+import header from './components/header';
 import game1 from './game-1';
 import greeting from './greeting';
-
-const header = `
-  <header class="header">
-    <div class="header__back">
-      <span class="back">
-        <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-        <img src="img/logo_small.png" width="101" height="44">
-      </span>
-    </div>
-  </header>
-`;
 
 const content = `
   <h1 class="rules__title">Правила</h1>
@@ -35,7 +25,7 @@ const form = `
 `;
 
 const template = `
-  ${header}
+  ${header()}
   <div class="rules central--none">
     ${content}
     ${form}

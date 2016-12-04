@@ -1,21 +1,22 @@
 import getElementFromTemplate from './get-element-from-template';
 import renderSlide from './render-slide';
+import {greetingData} from '../data/static-data';
 import greeting from './greeting';
 
-const template = `
-  <div id="intro" class="intro">
-    <h1 class="intro__asterisk">*</h1>
-    <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf
-    Sparnaay.</p>
-  </div>
-`;
+export default (data) => {
+  const template = `
+    <div id="intro" class="intro">
+      <h1 class="intro__asterisk">*</h1>
+      <p class="intro__motto"><sup>*</sup>${data.note}</p>
+    </div>
+  `;
 
-const intro = getElementFromTemplate(template);
+  const intro = getElementFromTemplate(template);
+  let introAsterisk = intro.querySelector('.intro__asterisk');
 
-let introAsterisk = intro.querySelector('.intro__asterisk');
+  introAsterisk.onclick = () => {
+    renderSlide(greeting(greetingData));
+  };
 
-introAsterisk.onclick = () => {
-  renderSlide(greeting);
+  return intro;
 };
-
-export default intro;

@@ -4,7 +4,7 @@ export default (data) => {
       return `<p class="game__task">${data.task}</p>
         <form class="game__content  game__content--wide">
           <div class="game__option">
-            <img src="${data.options[0]}" alt="Option 1" width="705" height="455">
+            <img src="${data.options[0].image}" alt="Option 1" width="705" height="455">
             <label class="game__answer  game__answer--photo">
               <input name="question1" type="radio" value="photo">
               <span>Фото</span>
@@ -21,7 +21,7 @@ export default (data) => {
         <form class="game__content">
           ${data.options.map((option, index) => `
             <div class="game__option">
-              <img src="${option}" alt="Option ${index + 1}" width="468" height="458">
+              <img src="${option.image}" alt="Option ${index + 1}" width="468" height="458">
               <label class="game__answer  game__answer--photo">
                 <input name="question${index + 1}" type="radio" value="photo">
                 <span>Фото</span>
@@ -39,7 +39,7 @@ export default (data) => {
         <form class="game__content  game__content--triple">
           ${data.options.map((option, index) => `
             <div class="game__option">
-              <img src="${option}" alt="Option ${index + 1}" width="304" height="455">
+              <img src="${option.image}" alt="Option ${index + 1}" width="304" height="455">
             </div>
           `).join('')}
         </form>`;

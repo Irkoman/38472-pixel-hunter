@@ -1,6 +1,6 @@
 import getElementFromTemplate from './get-element-from-template';
 import renderSlide from './render-slide';
-import {introData} from '../data/static-data';
+import {introData} from './data/static-data';
 import header from './components/header';
 import intro from './intro';
 

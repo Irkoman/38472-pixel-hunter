@@ -1,6 +1,6 @@
 import getElementFromTemplate from './get-element-from-template';
 import renderSlide from './render-slide';
-import {rulesData} from '../data/static-data';
+import {rulesData} from './data/static-data';
 import rules from './rules';
 
 export default (data) => {

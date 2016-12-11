@@ -1,4 +1,4 @@
-import {counters} from '../../data/game-data';
+import {counters} from '../data/game-data';
 
 const statistics = `
   <div class="stats">

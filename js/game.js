@@ -1,6 +1,6 @@
 import getElementFromTemplate from './get-element-from-template';
 import renderSlide from './render-slide';
-import {counters, statsData} from '../data/game-data';
+import {counters, statsData} from './data/game-data';
 import header from './components/header';
 import statistics from './components/statistics';
 import question from './components/question';

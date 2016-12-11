@@ -1,6 +1,6 @@
 import getElementFromTemplate from './get-element-from-template';
 import renderSlide from './render-slide';
-import {greetingData} from '../data/static-data';
+import {greetingData} from './data/static-data';
 import greeting from './greeting';
 
 export default (data) => {

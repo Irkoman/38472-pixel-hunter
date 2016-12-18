@@ -1,22 +1,7 @@
-export const counters = {
-  time: 0,
-  lives: 3,
-  question: 1,
-  stats: ['unknown', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown'],
-  points: 0
-};
-
-export const ANSWER_TIME = {
-  MAX: 30,
-  SLOW: 20,
-  FAST: 10
-};
-
 export const questions = [
   {
-    number: 1,
+    type: 'double',
     task: 'Угадайте для каждого изображения: фото или рисунок?',
-    time: 0,
     options: [
       {
         image: 'http://placehold.it/468x458',
@@ -27,9 +12,8 @@ export const questions = [
       }
     ]
   }, {
-    number: 2,
+    type: 'single',
     task: 'Угадай, фото или рисунок?',
-    time: 0,
     options: [
       {
         image: 'http://placehold.it/705x455',
@@ -37,9 +21,8 @@ export const questions = [
       }
     ]
   }, {
-    number: 3,
+    type: 'triple',
     task: 'Найдите рисунок среди изображений',
-    time: 0,
     options: [
       {
         image: 'http://placehold.it/304x455',
@@ -53,9 +36,8 @@ export const questions = [
       }
     ]
   }, {
-    number: 4,
+    type: 'single',
     task: 'Угадай, фото или рисунок?',
-    time: 0,
     options: [
       {
         image: 'http://placehold.it/705x455',
@@ -63,9 +45,8 @@ export const questions = [
       }
     ]
   }, {
-    number: 5,
+    type: 'double',
     task: 'Угадайте для каждого изображения: фото или рисунок?',
-    time: 0,
     options: [
       {
         image: 'http://placehold.it/468x458',
@@ -76,9 +57,8 @@ export const questions = [
       }
     ]
   }, {
-    number: 6,
+    type: 'single',
     task: 'Угадай, фото или рисунок?',
-    time: 0,
     options: [
       {
         image: 'http://placehold.it/705x455',
@@ -86,9 +66,8 @@ export const questions = [
       }
     ]
   }, {
-    number: 7,
+    type: 'triple',
     task: 'Найдите рисунок среди изображений',
-    time: 0,
     options: [
       {
         image: 'http://placehold.it/304x455',
@@ -102,9 +81,8 @@ export const questions = [
       }
     ]
   }, {
-    number: 8,
+    type: 'single',
     task: 'Угадай, фото или рисунок?',
-    time: 0,
     options: [
       {
         image: 'http://placehold.it/705x455',
@@ -112,9 +90,8 @@ export const questions = [
       }
     ]
   }, {
-    number: 9,
+    type: 'triple',
     task: 'Найдите рисунок среди изображений',
-    time: 0,
     options: [
       {
         image: 'http://placehold.it/304x455',
@@ -128,9 +105,8 @@ export const questions = [
       }
     ]
   }, {
-    number: 10,
+    type: 'double',
     task: 'Угадайте для каждого изображения: фото или рисунок?',
-    time: 0,
     options: [
       {
         image: 'http://placehold.it/468x458',

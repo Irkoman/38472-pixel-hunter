@@ -1,40 +1,121 @@
-export const counters = {
-  time: 0,
-  lives: ['empty', 'full', 'full'],
-  stats: ['wrong', 'slow', 'fast', 'correct', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown']
-};
-
 export const questions = [
   {
+    type: 'double',
     task: 'Угадайте для каждого изображения: фото или рисунок?',
-    options: ['http://placehold.it/468x458', 'http://placehold.it/468x458']
+    options: [
+      {
+        image: 'http://placehold.it/468x458',
+        answer: 'photo'
+      }, {
+        image: 'http://placehold.it/468x458',
+        answer: 'paint'
+      }
+    ]
   }, {
+    type: 'single',
     task: 'Угадай, фото или рисунок?',
-    options: ['http://placehold.it/705x455']
+    options: [
+      {
+        image: 'http://placehold.it/705x455',
+        answer: 'photo'
+      }
+    ]
   }, {
+    type: 'triple',
     task: 'Найдите рисунок среди изображений',
-    options: [ 'http://placehold.it/304x455', 'http://placehold.it/304x455', 'http://placehold.it/304x455']
+    options: [
+      {
+        image: 'http://placehold.it/304x455',
+        isAnswer: false
+      }, {
+        image: 'http://placehold.it/304x455',
+        isAnswer: true
+      }, {
+        image: 'http://placehold.it/304x455',
+        isAnswer: false
+      }
+    ]
   }, {
+    type: 'single',
     task: 'Угадай, фото или рисунок?',
-    options: ['http://placehold.it/705x455']
+    options: [
+      {
+        image: 'http://placehold.it/705x455',
+        answer: 'paint'
+      }
+    ]
   }, {
+    type: 'double',
     task: 'Угадайте для каждого изображения: фото или рисунок?',
-    options: ['http://placehold.it/468x458', 'http://placehold.it/468x458']
+    options: [
+      {
+        image: 'http://placehold.it/468x458',
+        answer: 'paint'
+      }, {
+        image: 'http://placehold.it/468x458',
+        answer: 'photo'
+      }
+    ]
   }, {
+    type: 'single',
     task: 'Угадай, фото или рисунок?',
-    options:  ['http://placehold.it/705x455']
+    options: [
+      {
+        image: 'http://placehold.it/705x455',
+        answer: 'photo'
+      }
+    ]
   }, {
+    type: 'triple',
     task: 'Найдите рисунок среди изображений',
-    options: ['http://placehold.it/304x455', 'http://placehold.it/304x455', 'http://placehold.it/304x455']
+    options: [
+      {
+        image: 'http://placehold.it/304x455',
+        isAnswer: true
+      }, {
+        image: 'http://placehold.it/304x455',
+        isAnswer: false
+      }, {
+        image: 'http://placehold.it/304x455',
+        isAnswer: false
+      }
+    ]
   }, {
+    type: 'single',
     task: 'Угадай, фото или рисунок?',
-    options: [ 'http://placehold.it/705x455']
+    options: [
+      {
+        image: 'http://placehold.it/705x455',
+        answer: 'photo'
+      }
+    ]
   }, {
+    type: 'triple',
     task: 'Найдите рисунок среди изображений',
-    options: ['http://placehold.it/304x455', 'http://placehold.it/304x455', 'http://placehold.it/304x455']
+    options: [
+      {
+        image: 'http://placehold.it/304x455',
+        isAnswer: false
+      }, {
+        image: 'http://placehold.it/304x455',
+        isAnswer: false
+      }, {
+        image: 'http://placehold.it/304x455',
+        isAnswer: true
+      }
+    ]
   }, {
+    type: 'double',
     task: 'Угадайте для каждого изображения: фото или рисунок?',
-    options: ['http://placehold.it/468x458', 'http://placehold.it/468x458']
+    options: [
+      {
+        image: 'http://placehold.it/468x458',
+        answer: 'photo'
+      }, {
+        image: 'http://placehold.it/468x458',
+        answer: 'paint'
+      }
+    ]
   }
 ];
 

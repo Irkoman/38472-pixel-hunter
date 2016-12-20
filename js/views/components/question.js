@@ -1,9 +1,17 @@
-export default (data) => {
-  switch (data.type) {
-    case 'double':
-      return `<p class="game__task">${data.task}</p>
+import AbstractView from '../../view';
+
+export default class QuestionView extends AbstractView {
+  constructor(data) {
+    super();
+    this.data = data;
+  }
+
+  getMarkup() {
+    switch (this.data.type) {
+      case 'double':
+        return `<p class="game__task">${this.data.task}</p>
         <form class="game__content">
-          ${data.options.map((option, index) => `
+          ${this.data.options.map((option, index) => `
             <div class="game__option">
               <img src="${option.image}" alt="Option ${index + 1}" width="468" height="458">
               <label class="game__answer  game__answer--photo">
@@ -18,21 +26,21 @@ export default (data) => {
           `).join('')}
         </form>`;
 
-    case 'triple':
-      return `<p class="game__task">${data.task}</p>
+      case 'triple':
+        return `<p class="game__task">${this.data.task}</p>
         <form class="game__content  game__content--triple">
-          ${data.options.map((option, index) => `
+          ${this.data.options.map((option, index) => `
             <div class="game__option">
               <img src="${option.image}" alt="Option ${index + 1}" width="304" height="455">
             </div>
           `).join('')}
         </form>`;
 
-    default:
-      return `<p class="game__task">${data.task}</p>
+      default:
+        return `<p class="game__task">${this.data.task}</p>
         <form class="game__content  game__content--wide">
           <div class="game__option">
-            <img src="${data.options[0].image}" alt="Option 1" width="705" height="455">
+            <img src="${this.data.options[0].image}" alt="Option 1" width="705" height="455">
             <label class="game__answer  game__answer--photo">
               <input name="question1" type="radio" value="photo">
               <span>Фото</span>
@@ -43,5 +51,10 @@ export default (data) => {
             </label>
           </div>
         </form>`;
+    }
   }
-};
+
+  bindHandlers() {
+    return super.bindHandlers();
+  }
+}

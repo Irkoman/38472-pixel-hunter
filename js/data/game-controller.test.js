@@ -1,6 +1,23 @@
 import assert from 'assert';
 import {questions} from './game-data';
-import {initGame, initialGame, setTime, setLives, setCurrentQuestion, getQuestion, setStats, isGameOver, initStats, setVerdict, computeScore, computeTotal, ANSWER_TYPE, getLivesExtra, getFastExtra, getSlowExtra} from './game-controller';
+import {
+  initGame,
+  initialGame,
+  setTime,
+  setLives,
+  setCurrentQuestion,
+  getQuestion,
+  setStats,
+  isGameOver,
+  initStats,
+  setVerdict,
+  computeScore,
+  computeTotal,
+  ANSWER_TYPE,
+  getLivesExtra,
+  getFastExtra,
+  getSlowExtra
+} from './game-controller';
 
 describe('Game initialization', () => {
   it('initGame correctly sets the game ', () => {

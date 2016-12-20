@@ -53,8 +53,4 @@ export default class QuestionView extends AbstractView {
         </form>`;
     }
   }
-
-  bindHandlers() {
-    return super.bindHandlers();
-  }
 }

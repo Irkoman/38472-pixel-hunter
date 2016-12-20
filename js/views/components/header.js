@@ -16,24 +16,20 @@ export default class HeaderView extends AbstractView {
       </div>
       ${this.state
         ? `<h1 class="game__timer">${this.state.time}</h1>
-          <div class="game__lives">${this._renderLives(this.state.lives)}</div>`
+          <div class="game__lives">${this._renderLives()}</div>`
         : ''}
     `;
-  }
-
-  bindHandlers() {
-    return super.bindHandlers();
   }
 
   update(newState) {
     this.state = newState;
   }
 
-  _renderLives(lives) {
+  _renderLives() {
     let gameLives = '';
 
     for (let i = 3; i > 0; i--) {
-      gameLives += `<img src="${ i > lives ? 'img/heart__empty.svg' : 'img/heart__full.svg'}" class="game__heart" alt="Life" width="32" height="32">`;
+      gameLives += `<img src="${ i > this.state.lives ? 'img/heart__empty.svg' : 'img/heart__full.svg'}" class="game__heart" alt="Life" width="32" height="32">`;
     }
 
     return gameLives;

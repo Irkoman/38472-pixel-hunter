@@ -17,8 +17,4 @@ export default class StatisticsView extends AbstractView {
       </div>
     `;
   }
-
-  bindHandlers() {
-    return super.bindHandlers();
-  }
 }

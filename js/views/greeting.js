@@ -20,10 +20,7 @@ class GreetingView extends AbstractView {
   bindHandlers() {
     const greetingContinue = this.element.querySelector('.greeting__continue');
 
-    greetingContinue.onclick = (e) => {
-      e.preventDefault();
-      renderSlide(rules());
-    };
+    greetingContinue.addEventListener('click', () => renderSlide(rules()));
   }
 }
 

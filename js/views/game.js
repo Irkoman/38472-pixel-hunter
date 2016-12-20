@@ -34,13 +34,13 @@ class GameView extends AbstractView {
   bindHandlers() {
     const answers = this.element.querySelector('.game__content');
 
-    answers.onclick = (e) => {
+    answers.addEventListener('click', (e) => {
       const answer = e.target.closest('.game__answer') || e.target.closest('.game__option');
 
       if (answer) {
         this.handleAnswer(answer, answers);
       }
-    };
+    });
   }
 
   startGame() {

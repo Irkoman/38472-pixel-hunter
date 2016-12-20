@@ -15,10 +15,7 @@ class IntroView extends AbstractView {
   bindHandlers() {
     const introAsterisk = this.element.querySelector('.intro__asterisk');
 
-    introAsterisk.onclick = (e) => {
-      e.preventDefault();
-      renderSlide(greeting());
-    };
+    introAsterisk.addEventListener('click', () => renderSlide(greeting()));
   }
 }
 

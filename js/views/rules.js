@@ -1,8 +1,6 @@
+import Application from '../application';
 import AbstractView from '../view';
-import renderSlide from '../render-slide';
 import HeaderView from './components/header';
-import game from './game';
-import greeting from './greeting';
 
 class RulesView extends AbstractView {
   getMarkup() {
@@ -18,9 +16,7 @@ class RulesView extends AbstractView {
     `;
 
     const template = `
-      <header class="header">
-        ${new HeaderView().getMarkup()}
-      </header>
+      ${new HeaderView().getMarkup()}
       ${content}
     `;
 
@@ -39,10 +35,10 @@ class RulesView extends AbstractView {
 
     rulesForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      renderSlide(game());
+      Application.showGame();
     });
 
-    backButton.addEventListener('click', () => renderSlide(greeting()));
+    backButton.addEventListener('click', () => Application.showGreeting());
   }
 }
 

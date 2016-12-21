@@ -1,6 +1,5 @@
+import Application from '../application';
 import AbstractView from '../view';
-import renderSlide from '../render-slide';
-import rules from './rules';
 
 class GreetingView extends AbstractView {
   getMarkup() {
@@ -20,7 +19,7 @@ class GreetingView extends AbstractView {
   bindHandlers() {
     const greetingContinue = this.element.querySelector('.greeting__continue');
 
-    greetingContinue.addEventListener('click', () => renderSlide(rules()));
+    greetingContinue.addEventListener('click', () => Application.showRules());
   }
 }
 

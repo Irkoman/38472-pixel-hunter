@@ -6,9 +6,11 @@ import {
   hasQuestion,
   setCurrentQuestion,
   getQuestion,
+  rateAnswerSpeed,
   setStats,
   isGameOver,
-  initStats
+  initStats,
+  generalStats
 } from './game-controller';
 
 class GameModel {
@@ -24,22 +26,26 @@ class GameModel {
     this._state = setTime(this._state, 30);
   }
 
-  isNextQuestionAvailable() {
-    return (this._state.question < this.state.questions.length) &&
-            hasQuestion(this._state.question + 1) &&
-            !isGameOver(this._state);
-  }
-
-  nextQuestion() {
+  nextLevel() {
     this._state = setCurrentQuestion(this._state, this._state.question + 1);
   }
 
-  getQuestionContent() {
+  hasLevel() {
+    return (this._state.question <= this.state.questions.length) &&
+      hasQuestion(this._state.question) &&
+      !isGameOver(this._state);
+  }
+
+  getLevelContent() {
     return getQuestion(this._state.question);
   }
 
   reduceLives() {
     this._state = setLives(this._state, this._state.lives - 1);
+  }
+
+  rateAnswer() {
+    return rateAnswerSpeed(this._state.time);
   }
 
   setAnswer(answer) {
@@ -48,14 +54,17 @@ class GameModel {
 
   restart() {
     this._state = initGame(initialGame);
+    initStats(initialGame);
   }
 
   tick() {
     this._state = setTime(this._state, this._state.time - 1);
   }
 
-  finish() {
-    return initStats(this._state);
+  saveStats() {
+    generalStats.unshift(initStats(this._state));
+    generalStats.pop();
+    return generalStats;
   }
 }
 

@@ -1,6 +1,5 @@
-import renderSlide from './render-slide';
-import intro from './views/intro';
+import Application from './application';
 
 (function () {
-  renderSlide(intro());
+  Application.showIntro();
 })();

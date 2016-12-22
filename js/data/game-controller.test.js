@@ -1,12 +1,10 @@
 import assert from 'assert';
-import {questions} from './game-data';
 import {
   initGame,
   initialGame,
   setTime,
   setLives,
   setCurrentQuestion,
-  getQuestion,
   setStats,
   isGameOver,
   initStats,
@@ -87,11 +85,6 @@ describe('Game parameters', () => {
         assert.throws(() => {
           setCurrentQuestion(initialGame, 11);
         });
-      });
-    });
-    describe('Getting', () => {
-      it('We can successfully get question, if it is contained in game-data', () => {
-        assert.equal(getQuestion(5), questions[5]);
       });
     });
   });

@@ -1,5 +1,3 @@
-import {questions} from './game-data';
-
 export const initGame = (game) => {
   return JSON.parse(JSON.stringify(game));
 };
@@ -7,9 +5,8 @@ export const initGame = (game) => {
 export const initialGame = {
   time: 30,
   lives: 3,
-  questions: questions,
   question: 0,
-  stats: Array.from(new Array(questions.length), () => 'unknown')
+  stats: Array.from(new Array(10), () => 'unknown')
 };
 
 export const Answer = {
@@ -61,22 +58,12 @@ export const setCurrentQuestion = (game, number) => {
     throw new RangeError('Value should not be negative');
   }
 
-  if (number > game.questions.length) {
+  if (number > 10) {
     throw new RangeError('Value should not be greater than number of questions');
   }
 
   game.question = number;
   return Object.assign({}, game, {question: number});
-};
-
-export const hasQuestion = (number) => typeof questions[number] !== 'undefined';
-
-export const getQuestion = (number) => {
-  if (!hasQuestion(number)) {
-    throw new RangeError(`This game has no question ${number}`);
-  }
-
-  return questions[number];
 };
 
 export const setStats = (game, answer) => {

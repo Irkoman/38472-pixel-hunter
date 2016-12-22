@@ -3,9 +3,7 @@ import {
   initGame,
   setTime,
   setLives,
-  hasQuestion,
   setCurrentQuestion,
-  getQuestion,
   rateAnswerSpeed,
   setStats,
   isGameOver,
@@ -14,7 +12,8 @@ import {
 } from './game-controller';
 
 export default class GameModel {
-  constructor(state = initialGame) {
+  constructor(data, state = initialGame) {
+    this.data = data;
     this._state = state;
   }
 
@@ -31,13 +30,13 @@ export default class GameModel {
   }
 
   hasLevel() {
-    return (this._state.question <= this.state.questions.length) &&
-      hasQuestion(this._state.question) &&
+    return (this._state.question <= this.data.length) &&
+      (typeof this.data[this._state.question] !== 'undefined') &&
       !isGameOver(this._state);
   }
 
   getLevelContent() {
-    return getQuestion(this._state.question);
+    return this.data[this._state.question];
   }
 
   reduceLives() {

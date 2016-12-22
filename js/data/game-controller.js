@@ -1,7 +1,7 @@
 import {questions} from './game-data';
 
 export const initGame = (game) => {
-  return Object.assign({}, game);
+  return JSON.parse(JSON.stringify(game));
 };
 
 export const initialGame = {
@@ -12,7 +12,7 @@ export const initialGame = {
   stats: Array.from(new Array(questions.length), () => 'unknown')
 };
 
-export const ANSWER_TYPE = {
+export const Answer = {
   UNKNOWN: 'unknown',
   WRONG: 'wrong',
   CORRECT: 'correct',
@@ -20,13 +20,13 @@ export const ANSWER_TYPE = {
   FAST: 'fast'
 };
 
-export const setAnswerType = (time) => {
+export const rateAnswerSpeed = (time) => {
   if (time < 10) {
-    return ANSWER_TYPE.SLOW;
+    return Answer.SLOW;
   } else if (time < 20) {
-    return ANSWER_TYPE.CORRECT;
+    return Answer.CORRECT;
   } else {
-    return ANSWER_TYPE.FAST;
+    return Answer.FAST;
   }
 };
 
@@ -80,7 +80,7 @@ export const getQuestion = (number) => {
 };
 
 export const setStats = (game, answer) => {
-  let gameInProgress = Object.assign({}, game);
+  let gameInProgress = JSON.parse(JSON.stringify(game));
   gameInProgress.stats[gameInProgress.question] = answer;
   return gameInProgress;
 };
@@ -98,7 +98,7 @@ export const computeScore = (game) => {
     return 0;
   }
 
-  const correctAnswers = game.stats.filter((answer) => answer !== ANSWER_TYPE.UNKNOWN && answer !== ANSWER_TYPE.WRONG);
+  const correctAnswers = game.stats.filter((answer) => answer !== Answer.UNKNOWN && answer !== Answer.WRONG);
   return correctAnswers.length * 100;
 };
 
@@ -123,7 +123,7 @@ export const getLivesExtra = (game) => {
 };
 
 export const getFastExtra = (game) => {
-  const fastAnswers = game.stats.filter((answer) => answer === ANSWER_TYPE.FAST);
+  const fastAnswers = game.stats.filter((answer) => answer === Answer.FAST);
 
   if (game.lives === 0 || fastAnswers.length === 0) {
     return [];
@@ -141,7 +141,7 @@ export const getFastExtra = (game) => {
 };
 
 export const getSlowExtra = (game) => {
-  const slowAnswers = game.stats.filter((answer) => answer === ANSWER_TYPE.SLOW);
+  const slowAnswers = game.stats.filter((answer) => answer === Answer.SLOW);
 
   if (game.lives === 0 || slowAnswers.length === 0) {
     return [];
@@ -173,3 +173,5 @@ export const initStats = (game) => {
 
   return stats;
 };
+
+export const generalStats = new Array(3);

@@ -1,12 +1,17 @@
+import Application from '../application';
 import AbstractView from '../view';
-import renderSlide from '../render-slide';
 import HeaderView from './components/header';
-import game from './game';
-import greeting from './greeting';
 
 class RulesView extends AbstractView {
+  constructor() {
+    super();
+    this.header = new HeaderView();
+    this.header.onBackClick = () => Application.showGreeting();
+    this.element.insertBefore(this.header.element, this.element.firstChild);
+  }
+
   getMarkup() {
-    const content = `
+    return `
       <div class="rules central--none">
         <h1 class="rules__title">Правила</h1>
         <p class="rules__description">Угадай 10 раз для каждого изображения — фото <img src="img/photo_icon.png" width="16" height="16"> или рисунок <img src="img/paint_icon.png" width="16" height="16" alt="">.<br>Фотографиями или рисунками могут быть оба изображения.<br>На каждую попытку отводится 30 секунд.<br>Ошибиться можно не более 3 раз.<br><br>Готовы?</p>
@@ -16,22 +21,12 @@ class RulesView extends AbstractView {
         </form>
       </div>
     `;
-
-    const template = `
-      <header class="header">
-        ${new HeaderView().getMarkup()}
-      </header>
-      ${content}
-    `;
-
-    return template;
   }
 
   bindHandlers() {
     const rulesForm = this.element.querySelector('.rules__form');
     const rulesSubmit = this.element.querySelector('.rules__button');
     const rulesInput = this.element.querySelector('.rules__input');
-    const backButton = this.element.querySelector('.header__back');
 
     rulesInput.addEventListener('input', (e) => {
       rulesSubmit.disabled = !e.target.value;
@@ -39,10 +34,8 @@ class RulesView extends AbstractView {
 
     rulesForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      renderSlide(game());
+      Application.showGame();
     });
-
-    backButton.addEventListener('click', () => renderSlide(greeting()));
   }
 }
 

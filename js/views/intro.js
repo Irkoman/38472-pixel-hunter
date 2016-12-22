@@ -1,6 +1,5 @@
+import Application from '../application';
 import AbstractView from '../view';
-import renderSlide from '../render-slide';
-import greeting from './greeting';
 
 class IntroView extends AbstractView {
   getMarkup() {
@@ -15,7 +14,7 @@ class IntroView extends AbstractView {
   bindHandlers() {
     const introAsterisk = this.element.querySelector('.intro__asterisk');
 
-    introAsterisk.addEventListener('click', () => renderSlide(greeting()));
+    introAsterisk.addEventListener('click', () => Application.showGreeting());
   }
 }
 

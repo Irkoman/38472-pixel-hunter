@@ -1,126 +1,88 @@
-import AbstractView from '../view';
-import renderSlide from '../render-slide';
-import gameModel from '../data/game-model';
-import {setAnswerType, ANSWER_TYPE} from '../data/game-controller';
+import Application from '../application';
 import HeaderView from './components/header';
-import QuestionView from './components/question';
-import StatisticsView from './components/statistics';
-import StatsView from './stats';
+import LevelView from './components/level';
+import GameModel from '../data/game-model';
+import {Answer} from '../data/game-controller';
 
-class GameView extends AbstractView {
-  constructor(data) {
-    super();
-    this.currentQuestion = gameModel.state.question;
-    this.currentQuestionContent = gameModel.getQuestionContent();
-    this.header = new HeaderView(gameModel.state);
-    this.question = new QuestionView(this.currentQuestionContent);
-    this.statistics = new StatisticsView(gameModel.state);
+class GamePresenter {
+  constructor(model) {
+    this.model = model;
+    this.content = new LevelView(this.model.state, this.model.getLevelContent());
+    this.header = new HeaderView(this.model.state);
+    this.root = document.createElement('div');
+    this.root.appendChild(this.header.element);
+    this.root.appendChild(this.content.element);
     this._interval = null;
-    this.startGame();
-  }
-
-  getMarkup() {
-    return `
-      <header class="header">
-        ${this.header.getMarkup()}
-      </header>
-      <div class="game">
-        ${this.question.getMarkup()}
-        ${this.statistics.getMarkup()}
-      </div>
-    `;
-  }
-
-  bindHandlers() {
-    const answers = this.element.querySelector('.game__content');
-
-    answers.addEventListener('click', (e) => {
-      const answer = e.target.closest('.game__answer') || e.target.closest('.game__option');
-
-      if (answer) {
-        this.handleAnswer(answer, answers);
-      }
-    });
   }
 
   startGame() {
+    this.changeLevel();
+
     this._interval = setInterval(() => {
-      if (gameModel.state.time === 0) {
-        this.changeQuestion(ANSWER_TYPE.WRONG);
-      } else {
-        gameModel.tick();
-        this.updateHeader();
+      this.model.tick();
+      this.updateHeader();
+
+      if (this.model.state.time === 0) {
+        this.answer(false);
       }
     }, 1000);
   }
 
-  changeQuestion(answerType) {
+  stopGame() {
     clearInterval(this._interval);
-    gameModel.setAnswer(answerType);
+  }
 
-    if (answerType === ANSWER_TYPE.WRONG) {
-      gameModel.reduceLives();
+  changeLevel() {
+    if (!this.model.hasLevel()) {
+      Application.showStats(this.model.saveStats());
+      this.exit();
     }
 
-    if (gameModel.isNextQuestionAvailable()) {
-      gameModel.initTime();
-      gameModel.nextQuestion();
-      renderSlide(new GameView().element);
-    } else {
-      renderSlide(new StatsView(gameModel.finish()).element);
-    }
+    this.model.initTime();
+    this.updateHeader();
+
+    const level = new LevelView(this.model.state, this.model.getLevelContent());
+    level.onAnswer = this.answer.bind(this);
+    this.updateContent(level);
   }
 
   updateHeader() {
-    this.header.update(gameModel.state);
-    const headerElement = this.element.querySelector('.header');
-    headerElement.innerHTML = this.header.getMarkup();
+    const header = new HeaderView(this.model.state);
+    header.onBackClick = this.onBack.bind(this);
+    this.root.replaceChild(header.element, this.header.element);
+    this.header = header;
   }
 
-  handleAnswer(element, container) {
-    switch (this.currentQuestionContent.type) {
-      case 'triple':
-        this.tripleAnswerHandler(element, container);
-        break;
-      default:
-        this.singleAnswerHandler(container);
-        break;
-    }
+  updateContent(view) {
+    this.root.replaceChild(view.element, this.content.element);
+    this.content = view;
   }
 
-  singleAnswerHandler(container) {
-    const radios = Array.from(container.querySelectorAll('input[type="radio"]:checked'));
-
-    if (radios.length < gameModel.state.questions[this.currentQuestion].options.length) {
-      return;
+  answer(isCorrect) {
+    if (!isCorrect) {
+      this.model.reduceLives();
+      this.model.setAnswer(Answer.WRONG);
+    } else {
+      this.model.setAnswer(this.model.rateAnswer());
     }
 
-    const isAnswerCorrect = () => {
-      return radios.every((radio, index) => {
-        return radio.value === this.currentQuestionContent.options[index].answer;
-      });
-    };
-
-    this.changeQuestion(isAnswerCorrect() ? setAnswerType(gameModel.state.time) : ANSWER_TYPE.WRONG);
+    this.model.nextLevel();
+    this.changeLevel();
   }
 
-  tripleAnswerHandler(element, container) {
-    const options = Array.from(container.querySelectorAll('.game__option'));
+  onBack() {
+    this.exit();
+    Application.showRules();
+  }
 
-    const isAnswerCorrect = () => {
-      let isCorrect;
-
-      options.forEach((option, index) => {
-        if (option === element) {
-          isCorrect = this.currentQuestionContent.options[index].isAnswer;
-        }
-      });
-
-      return isCorrect;
-    };
-
-    this.changeQuestion(isAnswerCorrect() ? setAnswerType(gameModel.state.time) : ANSWER_TYPE.WRONG);
+  exit() {
+    this.stopGame();
+    this.model.restart();
   }
 }
 
-export default () => new GameView().element;
+export default () => {
+  const game = new GamePresenter(new GameModel());
+  game.startGame();
+  return game.root;
+};

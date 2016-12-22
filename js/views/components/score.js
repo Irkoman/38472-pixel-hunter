@@ -1,6 +1,6 @@
 import AbstractView from '../../view';
 
-export default class StatisticsView extends AbstractView {
+export default class ScoreView extends AbstractView {
   constructor(gameState) {
     super();
     this.state = gameState;

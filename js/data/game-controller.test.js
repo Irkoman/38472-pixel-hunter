@@ -13,7 +13,7 @@ import {
   setVerdict,
   computeScore,
   computeTotal,
-  ANSWER_TYPE,
+  Answer,
   getLivesExtra,
   getFastExtra,
   getSlowExtra
@@ -98,7 +98,7 @@ describe('Game parameters', () => {
 
   describe('Stats', () => {
     it('setStats works correctly', () => {
-      assert.equal(setStats(initialGame, 'fast').stats[initialGame.question], initialGame.stats[initialGame.question]);
+      assert.equal(setStats(initialGame, 'fast').stats[5], initialGame.stats[5]);
     });
   });
 });
@@ -113,9 +113,9 @@ describe('GameOver', () => {
   });
 });
 
-const correctAnswers = Array.from(new Array(10), () => ANSWER_TYPE.CORRECT);
-const fastAnswers = Array.from(new Array(10), () => ANSWER_TYPE.FAST);
-const slowAnswers = Array.from(new Array(10), () => ANSWER_TYPE.SLOW);
+const correctAnswers = Array.from(new Array(10), () => Answer.CORRECT);
+const fastAnswers = Array.from(new Array(10), () => Answer.FAST);
+const slowAnswers = Array.from(new Array(10), () => Answer.SLOW);
 const extra = [
   {
     name: 'Бонус за скорость:',

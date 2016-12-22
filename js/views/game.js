@@ -7,8 +7,8 @@ import {Answer} from '../data/game-controller';
 class GamePresenter {
   constructor(model) {
     this.model = model;
-    this.content = new LevelView(this.model.state, this.model.getLevelContent());
     this.header = new HeaderView(this.model.state);
+    this.content = new LevelView(this.model.state, this.model.getLevelContent());
     this.root = document.createElement('div');
     this.root.appendChild(this.header.element);
     this.root.appendChild(this.content.element);
@@ -81,8 +81,8 @@ class GamePresenter {
   }
 }
 
-export default () => {
-  const game = new GamePresenter(new GameModel());
+export default (gameData) => {
+  const game = new GamePresenter(new GameModel(gameData));
   game.startGame();
   return game.root;
 };

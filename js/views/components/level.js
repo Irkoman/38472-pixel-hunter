@@ -14,60 +14,66 @@ export default class LevelView extends AbstractView {
   }
 
   getMarkup() {
+    let content;
+
     switch (this.levelContent.type) {
-      case 'double':
-        return `<div class="game">
-          <p class="game__task">${this.levelContent.task}</p>
+      case 'two-of-two':
+        content = `
           <form class="game__content">
-            ${this.levelContent.options.map((option, index) => `
+            ${this.levelContent.answers.map((answer, index) => `
               <div class="game__option">
-                <img src="${option.image}" alt="Option ${index + 1}" width="468" height="458">
+                <div class="game__image game__image--two-of-two" style="background-image: url('${answer.image.url}')"></div>
                 <label class="game__answer  game__answer--photo">
                   <input name="question${index + 1}" type="radio" value="photo">
                   <span>Фото</span>
                 </label>
                 <label class="game__answer  game__answer--paint">
-                  <input name="question${index + 1}" type="radio" value="paint">
+                  <input name="question${index + 1}" type="radio" value="painting">
                   <span>Рисунок</span>
                 </label>
               </div>
             `).join('')}
-          </form>
-          ${this.score.getMarkup()}
-        </div>`;
+          </form>`;
+        break;
 
-      case 'triple':
-        return `<div class="game">
-          <p class="game__task">${this.levelContent.task}</p>
+      case 'one-of-three':
+        content = `
           <form class="game__content  game__content--triple">
-            ${this.levelContent.options.map((option, index) => `
+            ${this.levelContent.answers.map((answer, index) => `
               <div class="game__option">
-                <img src="${option.image}" alt="Option ${index + 1}" width="304" height="455">
+                <div class="game__image game__image--one-of-three" style="background-image: url('${answer.image.url}')"></div>
               </div>
             `).join('')}
-          </form>
-          ${this.score.getMarkup()}
-        </div>`;
+          </form>`;
+        break;
 
       default:
-        return `<div class="game">
-          <p class="game__task">${this.levelContent.task}</p>
+        content = `
           <form class="game__content  game__content--wide">
             <div class="game__option">
-              <img src="${this.levelContent.options[0].image}" alt="Option 1" width="705" height="455">
+              <div class="game__image game__image--tinder-like" style="background-image: url('${this.levelContent.answers[0].image.url}')"></div>
               <label class="game__answer  game__answer--photo">
                 <input name="question1" type="radio" value="photo">
                 <span>Фото</span>
               </label>
               <label class="game__answer  game__answer--wide  game__answer--paint">
-                <input name="question1" type="radio" value="paint">
+                <input name="question1" type="radio" value="painting">
                 <span>Рисунок</span>
               </label>
             </div>
-          </form>
-          ${this.score.getMarkup()}
-        </div>`;
+          </form>`;
+        break;
     }
+
+    const template = `
+      <div class="game">
+        <p class="game__task">${this.levelContent.question}</p>
+        ${content}
+        ${this.score.getMarkup()}
+      </div>
+    `;
+
+    return template;
   }
 
   bindHandlers() {
@@ -77,7 +83,7 @@ export default class LevelView extends AbstractView {
       const answer = e.target.closest('.game__answer') || e.target.closest('.game__option');
 
       if (answer) {
-        if (this.levelContent.type === 'triple') {
+        if (this.levelContent.type === 'one-of-three') {
           this.tripleAnswerHandler(answer, answers);
         } else {
           this.singleAnswerHandler(answers);
@@ -89,13 +95,13 @@ export default class LevelView extends AbstractView {
   singleAnswerHandler(container) {
     const radios = Array.from(container.querySelectorAll('input[type="radio"]:checked'));
 
-    if (radios.length < this.levelContent.options.length) {
+    if (radios.length < this.levelContent.answers.length) {
       return;
     }
 
     const isAnswerCorrect = () => {
       return radios.every((radio, index) => {
-        return radio.value === this.levelContent.options[index].answer;
+        return radio.value === this.levelContent.answers[index].type;
       });
     };
 
@@ -105,18 +111,19 @@ export default class LevelView extends AbstractView {
   tripleAnswerHandler(element, container) {
     const options = Array.from(container.querySelectorAll('.game__option'));
 
-    const isAnswerCorrect = () => {
-      let isCorrect;
+    let allAnswers = [];
+    let checkedAnswer = '';
 
-      options.forEach((option, index) => {
-        if (option === element) {
-          isCorrect = this.levelContent.options[index].isAnswer;
-        }
-      });
+    options.forEach((option, index) => {
+      allAnswers.push(this.levelContent.answers[index].type);
 
-      return isCorrect;
-    };
+      if (option === element) {
+        checkedAnswer = this.levelContent.answers[index].type;
+      }
+    });
 
-    this._onAnswer(isAnswerCorrect());
+    let filteredAnswers = allAnswers.filter((item) => (item === checkedAnswer));
+
+    this._onAnswer(filteredAnswers.length === 1);
   }
 }

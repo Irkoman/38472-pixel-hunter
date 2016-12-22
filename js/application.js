@@ -1,6 +1,7 @@
 import introView from './views/intro';
 import greetingView from './views/greeting';
 import rulesView from './views/rules';
+import errorView from './views/error';
 import gamePresenter from './views/game';
 import StatsView from './views/stats';
 
@@ -9,6 +10,8 @@ const changeView = (element) => {
   main.innerHTML = '';
   main.appendChild(element);
 };
+
+let gameData;
 
 export default class Application {
   static showIntro() {
@@ -24,10 +27,18 @@ export default class Application {
   }
 
   static showGame() {
-    changeView(gamePresenter());
+    changeView(gamePresenter(gameData));
   }
 
   static showStats(stats) {
     changeView(new StatsView(stats).element);
+  }
+
+  static showError() {
+    changeView(errorView());
+  }
+
+  static set data(data) {
+    gameData = data;
   }
 }

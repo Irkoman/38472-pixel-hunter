@@ -35,3 +35,14 @@
   position: absolute;
   bottom: 0;
 }
+
+.intro__error {
+  font-size: 30px;
+  line-height: 1.3;
+  color: $main-red-color;
+  text-align: center;
+
+  position: relative;
+  top: 250px;
+  left: 0;
+}

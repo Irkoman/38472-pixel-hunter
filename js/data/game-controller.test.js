@@ -98,7 +98,7 @@ describe('Game parameters', () => {
 
   describe('Stats', () => {
     it('setStats works correctly', () => {
-      assert.equal(setStats(initialGame, 'fast').stats[initialGame.question], initialGame.stats[initialGame.question]);
+      assert.equal(setStats(initialGame, 'fast').stats[5], initialGame.stats[5]);
     });
   });
 });

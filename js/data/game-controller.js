@@ -1,7 +1,7 @@
 import {questions} from './game-data';
 
 export const initGame = (game) => {
-  return Object.assign({}, game);
+  return JSON.parse(JSON.stringify(game));
 };
 
 export const initialGame = {
@@ -80,7 +80,7 @@ export const getQuestion = (number) => {
 };
 
 export const setStats = (game, answer) => {
-  let gameInProgress = Object.assign({}, game);
+  let gameInProgress = JSON.parse(JSON.stringify(game));
   gameInProgress.stats[gameInProgress.question] = answer;
   return gameInProgress;
 };
@@ -163,23 +163,15 @@ export const initStats = (game) => {
   let score = computeScore(game);
   let total = computeTotal(score, extra);
 
-  const stats = Object.assign({}, initialStats, {
+  const stats = {
     verdict: setVerdict(game.lives),
     answers: game.stats,
     score: score,
     extra: extra,
     total: total
-  });
+  };
 
   return stats;
-};
-
-export const initialStats = {
-  verdict: '',
-  answers: [],
-  score: 0,
-  extra: [],
-  total: 0
 };
 
 export const generalStats = new Array(3);

@@ -13,7 +13,7 @@ import {
   generalStats
 } from './game-controller';
 
-class GameModel {
+export default class GameModel {
   constructor(state = initialGame) {
     this._state = state;
   }
@@ -67,5 +67,3 @@ class GameModel {
     return generalStats;
   }
 }
-
-export default new GameModel();

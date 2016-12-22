@@ -6,6 +6,10 @@ export default class HeaderView extends AbstractView {
     this.state = gameState;
   }
 
+  set onBackClick(handler) {
+    this._onBackClick = handler;
+  }
+
   getMarkup() {
     return `
       <header class="header">
@@ -21,6 +25,12 @@ export default class HeaderView extends AbstractView {
           : ''}
        </header>
     `;
+  }
+
+  bindHandlers() {
+    const backButton = this.element.querySelector('.header__back');
+
+    backButton.addEventListener('click', () => this._onBackClick());
   }
 
   _renderLives() {

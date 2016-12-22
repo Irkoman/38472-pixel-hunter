@@ -1,18 +1,17 @@
 import Application from '../application';
 import HeaderView from './components/header';
 import LevelView from './components/level';
-import gameModel from '../data/game-model';
+import GameModel from '../data/game-model';
 import {Answer} from '../data/game-controller';
 
 class GamePresenter {
-  constructor() {
-    this.header = new HeaderView(gameModel.state);
-    this.content = new LevelView(gameModel.state, gameModel.getLevelContent());
-
+  constructor(model) {
+    this.model = model;
+    this.content = new LevelView(this.model.state, this.model.getLevelContent());
+    this.header = new HeaderView(this.model.state);
     this.root = document.createElement('div');
     this.root.appendChild(this.header.element);
     this.root.appendChild(this.content.element);
-
     this._interval = null;
   }
 
@@ -20,11 +19,11 @@ class GamePresenter {
     this.changeLevel();
 
     this._interval = setInterval(() => {
-      if (gameModel.state.time === 0) {
+      this.model.tick();
+      this.updateHeader();
+
+      if (this.model.state.time === 0) {
         this.answer(false);
-      } else {
-        gameModel.tick();
-        this.updateHeader();
       }
     }, 1000);
   }
@@ -34,21 +33,22 @@ class GamePresenter {
   }
 
   changeLevel() {
-    if (!gameModel.hasLevel()) {
-      Application.showStats(gameModel.saveStats());
+    if (!this.model.hasLevel()) {
+      Application.showStats(this.model.saveStats());
       this.exit();
     }
 
-    gameModel.initTime();
+    this.model.initTime();
     this.updateHeader();
 
-    const level = new LevelView(gameModel.state, gameModel.getLevelContent());
+    const level = new LevelView(this.model.state, this.model.getLevelContent());
     level.onAnswer = this.answer.bind(this);
     this.updateContent(level);
   }
 
   updateHeader() {
-    const header = new HeaderView(gameModel.state);
+    const header = new HeaderView(this.model.state);
+    header.onBackClick = this.onBack.bind(this);
     this.root.replaceChild(header.element, this.header.element);
     this.header = header;
   }
@@ -59,30 +59,30 @@ class GamePresenter {
   }
 
   answer(isCorrect) {
-    this.stopGame();
-
     if (!isCorrect) {
-      gameModel.reduceLives();
+      this.model.reduceLives();
+      this.model.setAnswer(Answer.WRONG);
+    } else {
+      this.model.setAnswer(this.model.rateAnswer());
     }
 
-    let answer = !isCorrect ? Answer.WRONG : gameModel.rateAnswer();
+    this.model.nextLevel();
+    this.changeLevel();
+  }
 
-    gameModel.setAnswer(answer);
-    gameModel.nextLevel();
-
-    this.startGame();
+  onBack() {
+    this.exit();
+    Application.showRules();
   }
 
   exit() {
     this.stopGame();
-    gameModel.restart();
+    this.model.restart();
   }
 }
 
-const game = new GamePresenter();
-
 export default () => {
-  gameModel.restart();
+  const game = new GamePresenter(new GameModel());
   game.startGame();
   return game.root;
 };

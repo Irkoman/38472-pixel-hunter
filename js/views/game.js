@@ -34,7 +34,7 @@ class GamePresenter {
 
   changeLevel() {
     if (!this.model.hasLevel()) {
-      Application.showStats(this.model.saveStats());
+      Application.saveStats(this.model.state);
       this.exit();
     }
 
@@ -81,8 +81,8 @@ class GamePresenter {
   }
 }
 
-export default (gameData) => {
-  const game = new GamePresenter(new GameModel(gameData));
+export default (username, gameData) => {
+  const game = new GamePresenter(new GameModel(username, gameData));
   game.startGame();
   return game.root;
 };

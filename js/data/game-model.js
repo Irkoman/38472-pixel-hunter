@@ -6,15 +6,15 @@ import {
   setCurrentQuestion,
   rateAnswerSpeed,
   setStats,
-  isGameOver,
-  initStats,
-  generalStats
+  isGameOver
 } from './game-controller';
+import 'whatwg-fetch';
 
 export default class GameModel {
-  constructor(data, state = initialGame) {
+  constructor(username, data, state = initialGame) {
     this.data = data;
     this._state = state;
+    this._state.username = username;
   }
 
   get state() {
@@ -53,16 +53,9 @@ export default class GameModel {
 
   restart() {
     this._state = initGame(initialGame);
-    initStats(initialGame);
   }
 
   tick() {
     this._state = setTime(this._state, this._state.time - 1);
-  }
-
-  saveStats() {
-    generalStats.unshift(initStats(this._state));
-    generalStats.pop();
-    return generalStats;
   }
 }

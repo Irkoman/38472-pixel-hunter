@@ -1,11 +1,12 @@
 import Application from '../application';
 import AbstractView from '../view';
 import HeaderView from './components/header';
+import {formatStats} from '../data/game-controller';
 
-export default class StatsView extends AbstractView {
+class StatsView extends AbstractView {
   constructor(stats) {
     super();
-    this.stats = stats;
+    this.stats = stats.map((item) => formatStats(item));
     this.header = new HeaderView();
     this.header.onBackClick = () => Application.showIntro();
     this.element.insertBefore(this.header.element, this.element.firstChild);
@@ -49,3 +50,7 @@ export default class StatsView extends AbstractView {
     `;
   }
 }
+
+export default (stats) => {
+  return new StatsView(stats).element;
+};

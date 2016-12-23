@@ -145,7 +145,7 @@ export const getSlowExtra = (game) => {
   ];
 };
 
-export const initStats = (game) => {
+export const formatStats = (game) => {
   let extra = getLivesExtra(game).concat(getFastExtra(game)).concat(getSlowExtra(game));
   let score = computeScore(game);
   let total = computeTotal(score, extra);
@@ -160,5 +160,3 @@ export const initStats = (game) => {
 
   return stats;
 };
-
-export const generalStats = new Array(3);

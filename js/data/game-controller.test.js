@@ -7,7 +7,7 @@ import {
   setCurrentQuestion,
   setStats,
   isGameOver,
-  initStats,
+  formatStats,
   setVerdict,
   computeScore,
   computeTotal,
@@ -184,14 +184,14 @@ describe('Stats initialization', () => {
     });
   });
   describe('Initializing the stats', () => {
-    it('initStats correctly sets verdict', () => {
-      assert.equal(setVerdict(initialGame.lives), initStats(initialGame).verdict);
+    it('formatStats correctly sets verdict', () => {
+      assert.equal(setVerdict(initialGame.lives), formatStats(initialGame).verdict);
     });
-    it('initStats correctly sets answers', () => {
-      assert.equal(initStats(initialGame).answers, initialGame.stats);
+    it('formatStats correctly sets answers', () => {
+      assert.equal(formatStats(initialGame).answers, initialGame.stats);
     });
-    it('initStats correctly sets computed score', () => {
-      assert.equal(initStats(initialGame).score, computeScore(initialGame));
+    it('formatStats correctly sets computed score', () => {
+      assert.equal(formatStats(initialGame).score, computeScore(initialGame));
     });
   });
 });

@@ -1,12 +1,13 @@
 import AbstractView from '../../view';
 import ScoreView from './score';
+import 'element-closest';
 
 export default class LevelView extends AbstractView {
   constructor(state, levelContent) {
     super();
-    this.state = state;
-    this.score = new ScoreView(state);
-    this.levelContent = levelContent;
+    this._state = state;
+    this._score = new ScoreView(state);
+    this._levelContent = levelContent;
   }
 
   set onAnswer(handler) {
@@ -16,11 +17,11 @@ export default class LevelView extends AbstractView {
   getMarkup() {
     let content;
 
-    switch (this.levelContent.type) {
+    switch (this._levelContent.type) {
       case 'two-of-two':
         content = `
           <form class="game__content">
-            ${this.levelContent.answers.map((answer, index) => `
+            ${this._levelContent.answers.map((answer, index) => `
               <div class="game__option">
                 <div class="game__image game__image--two-of-two" style="background-image: url('${answer.image.url}')"></div>
                 <label class="game__answer  game__answer--photo">
@@ -39,7 +40,7 @@ export default class LevelView extends AbstractView {
       case 'one-of-three':
         content = `
           <form class="game__content  game__content--triple">
-            ${this.levelContent.answers.map((answer, index) => `
+            ${this._levelContent.answers.map((answer, index) => `
               <div class="game__option">
                 <div class="game__image game__image--one-of-three" style="background-image: url('${answer.image.url}')"></div>
               </div>
@@ -51,7 +52,7 @@ export default class LevelView extends AbstractView {
         content = `
           <form class="game__content  game__content--wide">
             <div class="game__option">
-              <div class="game__image game__image--tinder-like" style="background-image: url('${this.levelContent.answers[0].image.url}')"></div>
+              <div class="game__image game__image--tinder-like" style="background-image: url('${this._levelContent.answers[0].image.url}')"></div>
               <label class="game__answer  game__answer--photo">
                 <input name="question1" type="radio" value="photo">
                 <span>Фото</span>
@@ -67,9 +68,9 @@ export default class LevelView extends AbstractView {
 
     const template = `
       <div class="game">
-        <p class="game__task">${this.levelContent.question}</p>
+        <p class="game__task">${this._levelContent.question}</p>
         ${content}
-        ${this.score.getMarkup()}
+        ${this._score.getMarkup()}
       </div>
     `;
 
@@ -83,7 +84,7 @@ export default class LevelView extends AbstractView {
       const answer = e.target.closest('.game__answer') || e.target.closest('.game__option');
 
       if (answer) {
-        if (this.levelContent.type === 'one-of-three') {
+        if (this._levelContent.type === 'one-of-three') {
           this.tripleAnswerHandler(answer, answers);
         } else {
           this.singleAnswerHandler(answers);
@@ -95,13 +96,13 @@ export default class LevelView extends AbstractView {
   singleAnswerHandler(container) {
     const radios = Array.from(container.querySelectorAll('input[type="radio"]:checked'));
 
-    if (radios.length < this.levelContent.answers.length) {
+    if (radios.length < this._levelContent.answers.length) {
       return;
     }
 
     const isAnswerCorrect = () => {
       return radios.every((radio, index) => {
-        return radio.value === this.levelContent.answers[index].type;
+        return radio.value === this._levelContent.answers[index].type;
       });
     };
 
@@ -115,10 +116,10 @@ export default class LevelView extends AbstractView {
     let checkedAnswer = '';
 
     options.forEach((option, index) => {
-      allAnswers.push(this.levelContent.answers[index].type);
+      allAnswers.push(this._levelContent.answers[index].type);
 
       if (option === element) {
-        checkedAnswer = this.levelContent.answers[index].type;
+        checkedAnswer = this._levelContent.answers[index].type;
       }
     });
 

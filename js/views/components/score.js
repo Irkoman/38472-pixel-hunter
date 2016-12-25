@@ -3,14 +3,14 @@ import AbstractView from '../../view';
 export default class ScoreView extends AbstractView {
   constructor(gameState) {
     super();
-    this.state = gameState;
+    this._state = gameState;
   }
 
   getMarkup() {
     return `
       <div class="stats">
         <ul class="stats">
-          ${this.state.stats.map((result) => `
+          ${this._state.stats.map((result) => `
             <li class="stats__result stats__result--${result}"></li>
           `).join('')}
         </ul>

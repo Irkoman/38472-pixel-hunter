@@ -5,9 +5,9 @@ import HeaderView from './components/header';
 class RulesView extends AbstractView {
   constructor() {
     super();
-    this.header = new HeaderView();
-    this.header.onBackClick = () => Application.showGreeting();
-    this.element.insertBefore(this.header.element, this.element.firstChild);
+    this._header = new HeaderView();
+    this._header.onBackClick = () => Application.showGreeting();
+    this.element.insertBefore(this._header.element, this.element.firstChild);
   }
 
   getMarkup() {

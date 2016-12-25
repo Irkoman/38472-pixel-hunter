@@ -6,16 +6,16 @@ import {formatStats} from '../data/game-controller';
 class StatsView extends AbstractView {
   constructor(stats) {
     super();
-    this.stats = stats.map((item) => formatStats(item));
-    this.header = new HeaderView();
-    this.header.onBackClick = () => Application.showIntro();
-    this.element.insertBefore(this.header.element, this.element.firstChild);
+    this._stats = stats.map((item) => formatStats(item));
+    this._header = new HeaderView();
+    this._header.onBackClick = () => Application.showIntro();
+    this.element.insertBefore(this._header.element, this.element.firstChild);
   }
 
   getMarkup() {
     return `
       <div class="result">
-        ${this.stats.map((result, index) => `
+        ${this._stats.map((result, index) => `
           <h1>${result.verdict}</h1>
           <table class="result__table">
             <tr>

@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+
 export const initGame = (game) => {
   return JSON.parse(JSON.stringify(game));
 };

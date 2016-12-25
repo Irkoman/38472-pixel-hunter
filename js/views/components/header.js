@@ -3,7 +3,7 @@ import AbstractView from '../../view';
 export default class HeaderView extends AbstractView {
   constructor(gameState) {
     super();
-    this.state = gameState;
+    this._state = gameState;
   }
 
   set onBackClick(handler) {
@@ -19,8 +19,8 @@ export default class HeaderView extends AbstractView {
             <img src="img/logo_small.png" width="101" height="44">
           </span>
         </div>
-        ${this.state
-          ? `<h1 class="game__timer">${this.state.time}</h1>
+        ${this._state
+          ? `<h1 class="game__timer">${this._state.time}</h1>
             <div class="game__lives">${this._renderLives()}</div>`
           : ''}
        </header>
@@ -37,7 +37,7 @@ export default class HeaderView extends AbstractView {
     let gameLives = '';
 
     for (let i = 3; i > 0; i--) {
-      gameLives += `<img src="${ i > this.state.lives ? 'img/heart__empty.svg' : 'img/heart__full.svg'}" class="game__heart" alt="Life" width="32" height="32">`;
+      gameLives += `<img src="${ i > this._state.lives ? 'img/heart__empty.svg' : 'img/heart__full.svg'}" class="game__heart" alt="Life" width="32" height="32">`;
     }
 
     return gameLives;

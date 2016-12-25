@@ -14,6 +14,7 @@ const rename = require('gulp-rename');
 const imagemin = require('gulp-imagemin');
 const mocha = require('gulp-mocha');
 require('babel-register');
+require('babel-polyfill');
 
 gulp.task('style', function () {
   gulp.src('sass/style.scss')

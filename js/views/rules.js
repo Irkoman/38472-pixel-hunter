@@ -34,7 +34,7 @@ class RulesView extends AbstractView {
 
     rulesForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      Application.showGame();
+      Application.showGame(rulesInput.value);
     });
   }
 }

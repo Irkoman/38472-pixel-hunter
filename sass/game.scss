@@ -130,6 +130,10 @@
   &:hover {
     border-color: #df4e4e;
   }
+}
+
+.game__content--triple .game__image {
+  position: relative;
 
   &:active::after {
     content: "";

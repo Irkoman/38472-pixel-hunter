@@ -56,7 +56,7 @@ export default class Application {
   }
 
   static saveStats(state) {
-    const SERVER = 'https://intensive-ecmascript-server-dxttmcdylw.now.sh/pixel-hunter/stats';
+    const SERVER = 'https://intensive-ecmascript-server-btfgudlkpi.now.sh/pixel-hunter/stats';
 
     this.showSave();
 

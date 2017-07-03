@@ -5,7 +5,7 @@ if (!window.Promise) {
 }
 import 'whatwg-fetch';
 
-window.fetch('https://intensive-ecmascript-server-nnpnvhhedl.now.sh/pixel-hunter/questions').
+window.fetch('data/data.json').
     then((response) => Application.checkStatus(response)).
     then((response) => response.json()).
     then((data) => {
